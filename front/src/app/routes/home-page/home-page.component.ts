@@ -37,7 +37,7 @@ export class HomePageComponent implements OnInit {
 	public signin = () => {
 		// Vérifier les champs
 		this.AuthService
-			.signin(this.registerForm.value)
+			.signup(this.registerForm.value)
 			.then((apiResponse) => console.log(apiResponse))
 			.catch((apiResponse) => console.error(apiResponse));
 	};

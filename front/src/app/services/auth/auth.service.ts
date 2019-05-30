@@ -21,7 +21,7 @@ export class AuthService {
 		}
 	}
 
-	public signin = (data: UserModel): Promise<any> => {
+	public signup = (data: UserModel): Promise<any> => {
 		let myHeader = new HttpHeaders();
 		myHeader.append('Content-Type', 'application/json');
 

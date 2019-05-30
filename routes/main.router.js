@@ -1,42 +1,19 @@
-/*
-Imports
-*/
-    const { Router } = require('express');
-    const AuthRouterClass = require('./auth/auth.routes');
-    const ChatRouterClass = require('./chat/chat.routes');
-//
+const { Router } = require('express');
+const AuthRouterClass = require('./auth/auth.routes');
+const ScoresRouterClass = require('./scores/scores.routes');
 
-/* 
-Passport Strategy
-Passport est un module NPM qui permet de sécuriser les connexions utilisateur grâce à des stratégies spécifiques. Nous utilisons ici la startégie JWT (cf. setAuthentication)
-*/
-    const passport = require('passport');
-    const { setAuthentication } = require('../services/authentication');
-    setAuthentication(passport);
-//
+const passport = require('passport');
+const { setAuthentication } = require('../services/authentication');
+setAuthentication(passport);
 
-/*
-Define routers
-*/
-    // Parent
-    const mainRouter = Router();
-    const apiRouter = Router();
+const mainRouter = Router();
+const apiRouter = Router();
 
-    // Child
-    const authRouter = new AuthRouterClass();
-    const chatRouter = new ChatRouterClass( { passport } );
-//
+const authRouter = new AuthRouterClass();
+const scoresRouter = new ScoresRouterClass({ passport });
 
-/*
-Configure routes
-*/
-    mainRouter.use('/api', apiRouter);
-    apiRouter.use('/auth', authRouter.init());
-    apiRouter.use('/chat', chatRouter.init());
-//
+mainRouter.use('/api', apiRouter);
+apiRouter.use('/auth', authRouter.init());
+apiRouter.use('/scores', scoresRouter.init());
 
-/*
-Export
-*/
-    module.exports = { mainRouter };
-//
+module.exports = { mainRouter };

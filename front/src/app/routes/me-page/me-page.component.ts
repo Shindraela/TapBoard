@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../services/header/header.service';
+import { ScoresService } from '../../services/scores/scores.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -10,7 +11,12 @@ import { CookieService } from 'ngx-cookie-service';
 	styles: []
 })
 export class MePageComponent implements OnInit {
-	constructor(private headerService: HeaderService, private Router: Router, private cookieService: CookieService) {}
+	constructor(
+		private headerService: HeaderService,
+		private Router: Router,
+		private scoresService: ScoresService,
+		private cookieService: CookieService
+	) {}
 
 	public currentUserName = '';
 	public countClick = 0;
@@ -27,6 +33,13 @@ export class MePageComponent implements OnInit {
 		}
 	}
 
+	public postScore = (score, user) => {
+		this.scoresService
+			.postScore(score, user)
+			.then((apiResponse) => console.log(apiResponse))
+			.catch((apiResponse) => console.error(apiResponse));
+	};
+
 	startTimer(seconds: number) {
 		const timer$ = interval(1000);
 
@@ -39,6 +52,7 @@ export class MePageComponent implements OnInit {
 			}
 
 			if (this.curSec == 10) {
+				this.postScore(this.countClick, this.currentUserName);
 				this.Router.navigate([ 'tap' ]);
 			}
 		});

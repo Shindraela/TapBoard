@@ -1,11 +1,10 @@
 const ScoresModel = require('../../models/scores.model');
-const UserModel = require('../../models/user.model');
 
 const createItem = (body, userId) => {
 	return new Promise((resolve, reject) => {
 		const newScore = {
-			content: body.content,
-			author: body.user,
+			score: body.score,
+			user: body.user,
 			date: new Date()
 		};
 
@@ -15,33 +14,19 @@ const createItem = (body, userId) => {
 	});
 };
 
-const readItem = (body, userId) => {
+const readItem = () => {
 	return new Promise((resolve, reject) => {
-		ScoresModel.find((error, scores) => {
+		ScoresModel.find((error, score) => {
 			if (error) reject(error);
 			else {
-				let scoresArray = [];
+				let scoreArray = [];
+
 				(async function loop() {
-					for (let i = 0; i < scores.length; ++i) {
-						const user = await getScoresUser(scores[i].author);
-						scoresArray.push({ user: user, scores: scores[i] });
+					for (let i = 0; i < score.length; i++) {
+						scoreArray.push(score[i]);
 					}
-
-					return resolve(scoresArray);
+					return resolve(scoreArray);
 				})();
-			}
-		});
-	});
-};
-
-const getScoresUser = (id) => {
-	console.log(id);
-	return new Promise((resolve, reject) => {
-		UserModel.findById(id, { email: 1, _id: 0 }, (error, user) => {
-			if (error) return reject(error);
-			else {
-				console.log(user);
-				return resolve(user);
 			}
 		});
 	});
@@ -49,6 +34,5 @@ const getScoresUser = (id) => {
 
 module.exports = {
 	createItem,
-	readItem,
-	deleteItem
+	readItem
 };

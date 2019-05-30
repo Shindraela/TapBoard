@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const port = process.env.PORT;
 const server = express();
 const { mainRouter } = require('./routes/main.router');
-const mongoDB = require('./services/db.connect');
+const mongoDB = require('./services/db');
 const path = require('path');
 const ejs = require('ejs');
 //
@@ -26,8 +26,10 @@ class ServerClass {
 		server.use(express.static(path.join(__dirname, 'www')));
 
 		server.use(function(req, res, next) {
-			res.header('Access-Control-Allow-Origin', '*');
-			res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+			res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+			res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+			res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+			res.header('Access-Control-Allow-Credentials', 'true');
 			next();
 		});
 

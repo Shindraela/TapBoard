@@ -10,41 +10,32 @@ const { checkFields } = require('../../services/request.checker');
 const { createItem, readItem } = require('./scores.controller');
 
 class ScoresRouterClass {
-	/* 
-    Injection de Passport dans la class du Router
-    Passeport sera utiliser en middleware afin d'authentifier l'utilisateur avant se requête
-    */
 	constructor({ passport }) {
 		this.passport = passport;
 	}
-	//
 
 	routes() {
-		// Read : afficher la liste des messages du chat
-		scoresRouter.get('/', (req, res) => {
+		// Get all scores
+		scoresRouter.get('/', this.passport.authenticate('jwt', { session: false }), (req, res) => {
 			readItem()
-				.then((apiResponse) => sendApiSuccessResponse(res, 'Chat received', apiResponse))
+				.then((apiResponse) => sendApiSuccessResponse(res, 'Scores received', apiResponse))
 				.catch((apiResponse) => sendApiErrorResponse(res, 'Error during fetch', apiResponse));
 		});
 
-		// Create : ajout de Passport en middleware
-		scoresRouter.post('/', this.passport.authenticate('jwt', { session: false }), (req, res) => {
-			// Error: no body present
+		// Create new score
+		scoresRouter.post('/score', this.passport.authenticate('jwt', { session: false }), (req, res) => {
 			if (typeof req.body === 'undefined' || req.body === null) {
 				sendBodyError(res, 'No body data provided');
 			}
-			// Check fields in the body
-			const { miss, extra, ok } = checkFields([ 'content' ], req.body);
-			//=> Error: bad fields provided
+
+			const { miss, extra, ok } = checkFields([ 'score', 'user' ], req.body);
+
 			if (!ok) {
 				sendFieldsError(res, 'Bad fields provided', miss, extra);
 			} else {
-				//=> Request is valid: use controller
 				createItem(req.body, req.user._id)
-					.then((apiResponse) => sendApiSuccessResponse(res, 'Chat message is created', apiResponse))
-					.catch((apiResponse) =>
-						sendApiErrorResponse(res, 'Error during chat message creation', apiResponse)
-					);
+					.then((apiResponse) => sendApiSuccessResponse(res, 'Score is created', apiResponse))
+					.catch((apiResponse) => sendApiErrorResponse(res, 'Error during score creation', apiResponse));
 			}
 		});
 	}
