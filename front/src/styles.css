@@ -1,0 +1,33 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/* You can add global styles to this file, and also import other style files */
+.hide-content {
+	display: none;
+}
+
+.title-container {
+	text-align: center;
+}
+
+.score-button a {
+	color: white;
+}
+
+.counter-container {
+	text-align: center;
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.progressbar-container {
+	margin: 1.25rem;
+}
+
+.nav-container {
+	text-align: center;
+}
+
+.nav-container .score-button,
+.nav-container .logout-button {
+	margin: 1rem;
+}

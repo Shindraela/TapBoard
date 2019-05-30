@@ -1,0 +1,23 @@
+<h2>Login</h2>
+<form [formGroup]="loginForm" (submit)="login()">
+  Email
+  <input type="email" name="email" formControlName="email">
+  Password
+  <input type="password" name="password" formControlName="password">
+
+  <button type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
+
+<h2>Register</h2>
+<form [formGroup]="registerForm" (submit)="signin()">
+  First Name
+  <input type="text" name="first_name" formControlName="first_name">
+  Last Name
+  <input type="text" name="last_name" formControlName="last_name">
+  Email
+  <input type="email" name="email" formControlName="email">
+  Password
+  <input type="password" name="password" formControlName="password">
+
+  <button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>

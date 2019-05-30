@@ -1,0 +1,11 @@
+<app-header></app-header>
+<div class="counter-container">{{ countClick }}</div>
+
+<div (click)="changeImage = !changeImage; countClick = countClick+1; beginTapboard()">
+    <img alt="tap button" src="../../../assets/tapOff.png" [ngClass]="{'hide-content': changeImage}" />
+    <img alt="tap button" src="../../../assets/tapOn.png" [ngClass]="{'hide-content': !changeImage}" />
+</div>
+
+<div class="progressbar-container">
+    <mat-progress-bar [mode]="determinate" [value]="progressbarValue"></mat-progress-bar>
+</div>

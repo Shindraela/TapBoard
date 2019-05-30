@@ -1,0 +1,13 @@
+<header>
+  <h2 class="title-container">{{ title }}</h2>
+  <h6 class="title-container">{{ subtitle }}</h6>
+  <nav class="nav-container">
+    <button class="button score-button" *ngIf="headerService.isScoring">
+      <a [routerLink]="'/tap'">Scores</a>
+    </button>
+    <button class="button score-button" *ngIf="headerService.isPlaying">
+      <a [routerLink]="'/me'">Play</a>
+    </button>
+    <button class="button logout-button" (click)="logout()">Logout</button>
+  </nav>
+</header>
