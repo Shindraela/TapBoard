@@ -7,6 +7,7 @@ export class HeaderService {
 	subtitle = new BehaviorSubject('Subtitle');
 	isPlaying = false;
 	isScoring = false;
+	isLogout = false;
 
 	constructor() {}
 

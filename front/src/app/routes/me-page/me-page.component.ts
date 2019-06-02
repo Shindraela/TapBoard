@@ -64,5 +64,6 @@ export class MePageComponent implements OnInit {
 		this.headerService.setSubtitle('You have 10 seconds to tap. Ready? Steady? Tap!');
 		this.headerService.isPlaying = false;
 		this.headerService.isScoring = true;
+		this.headerService.isLogout = true;
 	}
 }

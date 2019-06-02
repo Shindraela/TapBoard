@@ -8,6 +8,6 @@
     <button class="button score-button" *ngIf="headerService.isPlaying">
       <a [routerLink]="'/me'">Play</a>
     </button>
-    <button class="button logout-button" (click)="logout()">Logout</button>
+    <button class="button logout-button" (click)="logout()" *ngIf="headerService.isLogout">Logout</button>
   </nav>
 </header>

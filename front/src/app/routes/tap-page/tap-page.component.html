@@ -1,6 +1,7 @@
 <app-header></app-header>
 <div class="table-scores-container">
-  <div *ngFor="let score of scores">
-    {{ score }}
+  <div *ngFor="let score of scores" class="score-container">
+    <div class="score">{{ score.score }}pts</div>
+    <div class="user">{{ score.user }} / {{ score.date | date:'short' }}</div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth/auth.service';
+import { HeaderService } from '../../services/header/header.service';
 
 @Component({
 	selector: 'app-home-page',
@@ -17,6 +18,7 @@ export class HomePageComponent implements OnInit {
 		private FormBuilder: FormBuilder,
 		private CookieService: CookieService,
 		private AuthService: AuthService,
+		private headerService: HeaderService,
 		private Router: Router
 	) {}
 
@@ -57,6 +59,10 @@ export class HomePageComponent implements OnInit {
 	};
 
 	ngOnInit() {
+		this.headerService.setTitle('Welcome on Tapboard');
+		this.headerService.setSubtitle('Login or register to start tapping');
+		this.headerService.isPlaying = false;
+		this.headerService.isScoring = false;
 		this.initForm();
 	}
 }
