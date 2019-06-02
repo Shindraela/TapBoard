@@ -1,6 +1,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 /* You can add global styles to this file, and also import other style files */
+body {
+	margin: 1.25rem;
+}
+
 .hide-content {
 	display: none;
 }
@@ -9,7 +13,57 @@
 	text-align: center;
 }
 
-.score-button a {
+.header-card {
+	margin: 1.25rem;
+	padding: 10px !important;
+}
+
+.header-card .mat-card-header {
+	justify-content: center;
+}
+
+.header-card .mat-card-title {
+	font-weight: bold;
+	font-size: 1.5em;
+	line-height: normal;
+}
+
+.header-card .mat-card-actions {
+	text-align: center;
+}
+
+input {
+	border: 0 !important;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form > mat-form-field {
+	margin-bottom: 36px;
+}
+
+form > * {
+	width: 100%;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+	padding: 0.3em !important;
+}
+
+.mat-form-field-label {
+	left: 10px !important;
+}
+
+.login-btn,
+.register-btn {
+	margin: 0.5rem;
+	align-self: center;
+}
+
+.score-btn a {
 	color: white;
 }
 
@@ -27,8 +81,8 @@
 	text-align: center;
 }
 
-.nav-container .score-button,
-.nav-container .logout-button {
+.score-btn,
+.logout-btn {
 	margin: 1rem;
 }
 

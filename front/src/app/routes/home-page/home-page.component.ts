@@ -24,16 +24,24 @@ export class HomePageComponent implements OnInit {
 
 	private initForm = () => {
 		this.registerForm = this.FormBuilder.group({
-			first_name: [ undefined, Validators.required ],
-			last_name: [ undefined, Validators.required ],
-			email: [ undefined, Validators.required ],
-			password: [ undefined, Validators.required ]
+			first_name: [ '', Validators.required ],
+			last_name: [ '', Validators.required ],
+			email: [ '', Validators.required ],
+			password: [ '', Validators.required ]
 		});
 
 		this.loginForm = this.FormBuilder.group({
-			email: [ undefined, Validators.required ],
-			password: [ undefined, Validators.required ]
+			email: [ '', Validators.required ],
+			password: [ '', Validators.required ]
 		});
+	};
+
+	public hasError = (controlName: string, errorName: string) => {
+		return this.loginForm.controls[controlName].hasError(errorName);
+	};
+
+	public hasRegisterError = (controlName: string, errorName: string) => {
+		return this.registerForm.controls[controlName].hasError(errorName);
 	};
 
 	public signin = () => {
