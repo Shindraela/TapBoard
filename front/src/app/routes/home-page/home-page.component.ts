@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth/auth.service';
 import { HeaderService } from '../../services/header/header.service';
+import { FieldConfig } from '../../field.interface';
+import { DynamicFormComponent } from '../../shared/dynamic-form/dynamic-form.component';
 
 @Component({
 	selector: 'app-home-page',
@@ -11,49 +13,138 @@ import { HeaderService } from '../../services/header/header.service';
 	providers: [ AuthService ]
 })
 export class HomePageComponent implements OnInit {
-	public registerForm: FormGroup;
-	public loginForm: FormGroup;
+	@ViewChild(DynamicFormComponent) registerForm: DynamicFormComponent;
+	@ViewChild(DynamicFormComponent) loginForm: DynamicFormComponent;
 
 	constructor(
-		private FormBuilder: FormBuilder,
 		private CookieService: CookieService,
 		private AuthService: AuthService,
 		private headerService: HeaderService,
 		private Router: Router
 	) {}
 
-	private initForm = () => {
-		this.registerForm = this.FormBuilder.group({
-			first_name: [ '', Validators.required ],
-			last_name: [ '', Validators.required ],
-			email: [ '', Validators.required ],
-			password: [ '', Validators.required ]
-		});
+	/** Register Form Config */
+	regConfig: FieldConfig[] = [
+		{
+			type: 'input',
+			label: 'First Name',
+			inputType: 'text',
+			name: 'first_name',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'First Name Required'
+				},
+				{
+					name: 'pattern',
+					validator: Validators.pattern('^[a-zA-Z]+$'),
+					message: 'Accept only text'
+				}
+			]
+		},
+		{
+			type: 'input',
+			label: 'Last Name',
+			inputType: 'text',
+			name: 'last_name',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'Last Name Required'
+				},
+				{
+					name: 'pattern',
+					validator: Validators.pattern('^[a-zA-Z]+$'),
+					message: 'Accept only text'
+				}
+			]
+		},
+		{
+			type: 'input',
+			label: 'Email Address',
+			inputType: 'email',
+			name: 'email',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'Email Required'
+				},
+				{
+					name: 'pattern',
+					validator: Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+					message: 'Invalid email'
+				}
+			]
+		},
+		{
+			type: 'input',
+			label: 'Password',
+			inputType: 'password',
+			name: 'password',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'Password Required'
+				}
+			]
+		},
+		{
+			type: 'button',
+			label: 'Register'
+		}
+	];
 
-		this.loginForm = this.FormBuilder.group({
-			email: [ '', Validators.required ],
-			password: [ '', Validators.required ]
-		});
-	};
+	/** Login Form Config */
+	logConfig: FieldConfig[] = [
+		{
+			type: 'input',
+			label: 'Email Address',
+			inputType: 'email',
+			name: 'email',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'Email Required'
+				},
+				{
+					name: 'pattern',
+					validator: Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+					message: 'Invalid email'
+				}
+			]
+		},
+		{
+			type: 'input',
+			label: 'Password',
+			inputType: 'password',
+			name: 'password',
+			validations: [
+				{
+					name: 'required',
+					validator: Validators.required,
+					message: 'Password Required'
+				}
+			]
+		},
+		{
+			type: 'button',
+			label: 'Login'
+		}
+	];
 
-	public hasError = (controlName: string, errorName: string) => {
-		return this.loginForm.controls[controlName].hasError(errorName);
-	};
-
-	public hasRegisterError = (controlName: string, errorName: string) => {
-		return this.registerForm.controls[controlName].hasError(errorName);
-	};
-
-	public signin = () => {
-		// Vérifier les champs
+	submit(value: any) {
 		this.AuthService
 			.signup(this.registerForm.value)
 			.then((apiResponse) => console.log(apiResponse))
 			.catch((apiResponse) => console.error(apiResponse));
-	};
+	}
 
-	public login = () => {
-		// Vérifier les champs
+	login(value: any) {
 		this.AuthService
 			.login(this.loginForm.value)
 			.then((apiResponse) => {
@@ -64,13 +155,12 @@ export class HomePageComponent implements OnInit {
 				console.log('Logged', apiResponse);
 			})
 			.catch((apiResponse) => console.error(apiResponse));
-	};
+	}
 
 	ngOnInit() {
 		this.headerService.setTitle('Welcome on Tapboard');
 		this.headerService.setSubtitle('Login or register to start tapping');
 		this.headerService.isPlaying = false;
 		this.headerService.isScoring = false;
-		this.initForm();
 	}
 }

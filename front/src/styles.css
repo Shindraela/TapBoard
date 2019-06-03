@@ -15,7 +15,6 @@ body {
 
 .header-card {
 	margin: 1.25rem;
-	padding: 10px !important;
 }
 
 .header-card .mat-card-header {
@@ -108,4 +107,8 @@ form > * {
 	font-size: 0.9em;
 	text-align: right;
 	flex-grow: 1;
+}
+
+.demo-full-width {
+	width: 100%;
 }

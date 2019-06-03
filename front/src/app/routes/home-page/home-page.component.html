@@ -1,41 +1,7 @@
 <app-header></app-header>
 
 <h3>Login</h3>
-<form [formGroup]="loginForm" (submit)="login()">
-  <mat-form-field>
-    <input matInput placeholder="Email" formControlName="email" type="email" required>
-    <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Password" formControlName="password" type="password" required>
-    <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-  </mat-form-field>
-
-  <button mat-button class="login-btn" type="submit" [disabled]="!loginForm.valid">Login</button>
-</form>
+<dynamic-form [fields]="logConfig" (submit)="login($event)"></dynamic-form>
 
 <h3>Register</h3>
-<form [formGroup]="registerForm" (submit)="signin()">
-  <mat-form-field>
-    <input matInput placeholder="First Name" formControlName="first_name" type="text" required>
-    <mat-error *ngIf="hasRegisterError('first_name', 'required')">First Name is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Last Name" formControlName="last_name" type="text" required>
-    <mat-error *ngIf="hasRegisterError('last_name', 'required')">Last Name is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Email" formControlName="email" type="email" required>
-    <mat-error *ngIf="hasRegisterError('email', 'required')">Email is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Password" formControlName="password" type="password" required>
-    <mat-error *ngIf="hasRegisterError('password', 'required')">Password is required</mat-error>
-  </mat-form-field>
-
-  <button mat-button class="register-btn" type="submit" [disabled]="!registerForm.valid">Register</button>
-</form>
+<dynamic-form [fields]="regConfig" (submit)="submit($event)"></dynamic-form>

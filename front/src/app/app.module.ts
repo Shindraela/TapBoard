@@ -4,44 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MainRouter } from './app.router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-	MatAutocompleteModule,
-	MatBadgeModule,
-	MatBottomSheetModule,
-	MatButtonModule,
-	MatButtonToggleModule,
-	MatCardModule,
-	MatCheckboxModule,
-	MatChipsModule,
-	MatDatepickerModule,
-	MatDialogModule,
-	MatDividerModule,
-	MatExpansionModule,
-	MatFormFieldModule,
-	MatGridListModule,
-	MatIconModule,
-	MatInputModule,
-	MatListModule,
-	MatMenuModule,
-	MatNativeDateModule,
-	MatPaginatorModule,
-	MatProgressBarModule,
-	MatProgressSpinnerModule,
-	MatRadioModule,
-	MatRippleModule,
-	MatSelectModule,
-	MatSidenavModule,
-	MatSliderModule,
-	MatSlideToggleModule,
-	MatSnackBarModule,
-	MatSortModule,
-	MatStepperModule,
-	MatTableModule,
-	MatTabsModule,
-	MatToolbarModule,
-	MatTooltipModule,
-	MatTreeModule
-} from '@angular/material';
+import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/auth/token.interceptor';
@@ -55,21 +18,31 @@ import { HomePageComponent } from './routes/home-page/home-page.component';
 import { MePageComponent } from './routes/me-page/me-page.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { TapPageComponent } from './routes/tap-page/tap-page.component';
+import { DynamicFieldDirective } from './shared/dynamic-field/dynamic-field.directive';
+import { ButtonComponent } from './shared/button/button.component';
+import { InputComponent } from './shared/input/input.component';
+import { DynamicFormComponent } from './shared/dynamic-form/dynamic-form.component';
 
 @NgModule({
-	declarations: [ AppComponent, HomePageComponent, MePageComponent, HeaderComponent, TapPageComponent ],
+	declarations: [
+		AppComponent,
+		HomePageComponent,
+		MePageComponent,
+		HeaderComponent,
+		TapPageComponent,
+		DynamicFieldDirective,
+		ButtonComponent,
+		InputComponent,
+		DynamicFormComponent
+	],
 	imports: [
 		BrowserModule,
 		RouterModule.forRoot(MainRouter),
 		FormsModule,
-		MatProgressBarModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
-		MatCardModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatRippleModule
+		MaterialModule
 	],
 	providers: [
 		{
@@ -81,6 +54,7 @@ import { TapPageComponent } from './routes/tap-page/tap-page.component';
 		CookieService,
 		AuthGuard
 	],
+	entryComponents: [ InputComponent, ButtonComponent ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}
