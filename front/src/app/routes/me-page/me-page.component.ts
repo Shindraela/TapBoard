@@ -37,6 +37,9 @@ export class MePageComponent implements OnInit {
 		this.scoresService
 			.postScore(score, user)
 			.then((apiResponse) => console.log(apiResponse))
+			.then((apiResponse) => {
+				this.Router.navigate([ 'tap' ]);
+			})
 			.catch((apiResponse) => console.error(apiResponse));
 	};
 
@@ -53,7 +56,6 @@ export class MePageComponent implements OnInit {
 
 			if (this.curSec == 10) {
 				this.postScore(this.countClick, this.currentUserName);
-				this.Router.navigate([ 'tap' ]);
 			}
 		});
 	}
